@@ -1,0 +1,27 @@
+[tools]
+go = "1.22.10"
+golangci-lint = "1.63.0"
+
+[tasks.test]
+run = 'go test -v -race ./...'
+
+[tasks.lint]
+run = 'golangci-lint run ./...'
+
+[tasks.fmt]
+run = 'go fmt ./...'
+
+[tasks.tidy]
+run = 'go mod tidy'
+
+[tasks.build]
+dir = "examples"
+run = 'docker compose build'
+
+[tasks.dup]
+dir = "examples"
+run = 'docker compose up'
+
+[tasks.ddown]
+dir = "examples"
+run = 'docker compose down'

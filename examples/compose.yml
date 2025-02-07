@@ -1,0 +1,45 @@
+services:
+  fiber:
+    build:
+      context: ../
+      dockerfile: examples/fiber/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXTAUTH_SECRET=hogehoge
+    networks:
+      - app-network
+  nextjs:
+    build: ./nextjs
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - NEXTAUTH_URL=http://localhost:3001
+      - NEXTAUTH_SECRET=hogehoge
+    volumes:
+      - ./nextjs:/app
+      - nodemodules:/app/node_modules
+    networks:
+      - app-network
+  authjs:
+    build: ./authjs
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - NEXTAUTH_URL=http://localhost:3002
+      - NEXTAUTH_SECRET=hogehoge
+    volumes:
+      - ./authjs:/app
+      - authjsnodemodules:/app/node_modules
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  nodemodules: {}
+  authjsnodemodules: {}

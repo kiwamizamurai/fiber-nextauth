@@ -1,0 +1,49 @@
+linters:
+  enable:
+    - gofmt
+    - govet
+    - errcheck
+    - staticcheck
+    - gosimple
+    - ineffassign
+    - typecheck
+    - unused
+    - misspell
+    - gosec
+    - prealloc
+    - gocritic
+    - revive
+    - bodyclose
+    - nilerr
+    - gocyclo
+
+linters-settings:
+  gocyclo:
+    min-complexity: 15
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - style
+      - performance
+  gosec:
+    excludes:
+      - G404  # Insecure random number source (rand)
+  revive:
+    rules:
+      - name: exported
+        arguments:
+          - disableStutteringCheck
+
+run:
+  timeout: 5m
+  issues-exit-code: 1
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gosec
+  exclude-dirs:
+    - examples
+  max-issues-per-linter: 0
+  max-same-issues: 0
